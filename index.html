@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STELLAR X AI</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #1e1b4b, #020617 65%);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .app {
+      width: 95%;
+      max-width: 850px;
+      height: 90vh;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 24px;
+      box-shadow: 0 0 40px rgba(59, 130, 246, 0.25);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 22px 26px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(2, 6, 23, 0.45);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 1.5px;
+    }
+
+    .header p {
+      margin: 6px 0 0;
+      color: #93c5fd;
+      font-size: 14px;
+    }
+
+    .chat-area {
+      flex: 1;
+      padding: 22px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .message {
+      max-width: 75%;
+      padding: 14px 16px;
+      border-radius: 18px;
+      line-height: 1.5;
+      font-size: 15px;
+      word-break: break-word;
+    }
+
+    .bot {
+      align-self: flex-start;
+      background: rgba(30, 41, 59, 0.95);
+      color: #dbeafe;
+      border-bottom-left-radius: 6px;
+    }
+
+    .user {
+      align-self: flex-end;
+      background: #2563eb;
+      color: white;
+      border-bottom-right-radius: 6px;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      padding: 18px;
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(2, 6, 23, 0.55);
+    }
+
+    input {
+      flex: 1;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      outline: none;
+      background: rgba(15, 23, 42, 0.95);
+      color: white;
+      font-size: 15px;
+    }
+
+    input::placeholder {
+      color: #94a3b8;
+    }
+
+    button {
+      padding: 0 22px;
+      border: none;
+      border-radius: 14px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .goal {
+      padding: 12px 18px;
+      font-size: 13px;
+      color: #cbd5e1;
+      background: rgba(15, 23, 42, 0.7);
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .app {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+      }
+
+      .message {
+        max-width: 88%;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+
+      button {
+        padding: 0 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="header">
+      <h1>STELLAR X AI</h1>
+      <p>AI 웹서비스 제작 예시 프로젝트</p>
+    </div>
+
+    <div class="chat-area" id="chatArea">
+      <div class="message bot">
+        안녕하세요. 저는 STELLAR X AI입니다.<br />
+        질문을 입력하면 이곳에 답변이 표시됩니다.
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input
+        id="userInput"
+        type="text"
+        placeholder="메시지를 입력하세요..."
+        onkeydown="handleEnter(event)"
+      />
+      <button onclick="sendMessage()">전송</button>
+    </div>
+
+    <div class="goal">
+      목표: AI를 단순히 사용하는 것을 넘어, 직접 AI 웹서비스를 만들고 배포하기
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const chatArea = document.getElementById("chatArea");
+      const text = input.value.trim();
+
+      if (text === "") {
+        return;
+      }
+
+      const userMessage = document.createElement("div");
+      userMessage.className = "message user";
+      userMessage.textContent = text;
+      chatArea.appendChild(userMessage);
+
+      input.value = "";
+
+      const botMessage = document.createElement("div");
+      botMessage.className = "message bot";
+      botMessage.textContent =
+        "AI 응답 예시: '" + text + "'에 대한 답변을 생성하는 기능을 여기에 연결할 수 있습니다.";
+      chatArea.appendChild(botMessage);
+
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function handleEnter(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    }
+  </script>
+</body>
+</html>
